@@ -1,9 +1,9 @@
-<h1>Detecção e Binarização de placas de carros via câmeras IPs / Webcams</h1>
+<h1>Detecção e Binarização de placas de carros de imagens</h1>
 <br>
 
 <p>
     A ideia desse projeto é testar a detecção e a binarização de placas de carros
-    utilizando câmeras IPS e Webcams.
+    localizadas em uma pasta do computador.
     A Detecção das placas é feita utilizando a classificação por cascata ( haarcascade ) presente na
     biblioteca OpenCv.
     A Binarização é feita manualmente, a partir da imagem preta e branca resultante da detecção.
