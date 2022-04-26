@@ -2,12 +2,20 @@ import cv2
 import os
 import numpy
 from PIL import Image
+import matplotlib.pyplot as plt
 from binarizacao import Binarizacao
 
 
 # haarcascade    = 'assets/haarcascade_licence_plate_rus_16stages.xml'
 haarcascade    = 'assets/haarcascade_russian_plate_number.xml'
 classificador  = cv2.CascadeClassifier(haarcascade)
+
+
+def salvar_imagem(caminho, imagem):
+    plt.imsave(caminho, imagem)
+    plt.imshow(imagem)
+    plt.show()
+
 
 imagens = []
 for p, _, files in os.walk(os.path.abspath('assets/imagens_originais')):
@@ -17,7 +25,7 @@ for p, _, files in os.walk(os.path.abspath('assets/imagens_originais')):
 
 # loop imagem por imagem
 for imagem_atual in imagens:
-    img_placa = cv2.imread('assets/imagens_originais/'+str(imagem_atual))
+    img_placa = cv2.imread(f'assets/imagens_originais/{imagem_atual}')
     print(imagem_atual)
 
     # transforma imagem em preta e branca
@@ -67,5 +75,12 @@ for imagem_atual in imagens:
         # converte imagem de PIL para CV2
         img_mat = cv2.cvtColor(numpy.asarray(img_binarizada), cv2.COLOR_RGB2BGR)
 
-        # salva imagem detectada
-        cv2.imwrite('assets/placas_detectadas/'+str(imagem_atual), img_mat)
+        # erosão
+        rect = cv2.getStructuringElement(cv2.MORPH_RECT, (8, 8))
+        img_mat = cv2.erode(img_mat, rect, iterations=1)
+        salvar_imagem(f'assets/placas_detectadas/{imagem_atual}_erosao.png', img_mat)
+
+        # dilatação
+        elip = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (8, 8))
+        img_mat = cv2.dilate(img_mat, elip, iterations=1)
+        salvar_imagem(f'assets/placas_detectadas/{imagem_atual}_dilatacao.png', img_mat)
