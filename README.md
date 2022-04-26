@@ -19,3 +19,6 @@
 #### Executar
 * venv\Scripts\activate.bat
 * python run.py
+* cv2
+* numpy
+* PIL
