@@ -5,8 +5,8 @@ from PIL import Image
 from binarizacao import Binarizacao
 
 
-# haarcascade    = 'haarcascade_licence_plate_rus_16stages.xml'
-haarcascade    = 'haarcascade_russian_plate_number.xml'
+# haarcascade    = 'assets/haarcascade_licence_plate_rus_16stages.xml'
+haarcascade    = 'assets/haarcascade_russian_plate_number.xml'
 classificador  = cv2.CascadeClassifier(haarcascade)
 
 imagens = []
@@ -28,7 +28,8 @@ for imagem_atual in imagens:
         img_cinza,
         scaleFactor=1.01,
         minNeighbors=15,
-        minSize=(30,50) )
+        minSize=(30,50)
+    )
 
     # se detectou a placa, corta a imagem
     if len(placas_detectadas) > 0:
@@ -45,21 +46,23 @@ for imagem_atual in imagens:
                 (x, y),     # ponto 1
                 (x+l, y+a), # ponto 2
                 (0, 0, 0),  # cor RGB
-                2 )
+                2
+            )
 
         # corta area detectada
         img_cortada = img_cinza[
             corte_y+5:corte_y+corte_a-5,
-            corte_x+5:corte_x+corte_l-5]
+            corte_x+5:corte_x+corte_l-5
+        ]
 
-        # diminui tamanho da imagem para 200 x 100
-        img_pequena = cv2.resize(img_cortada, (200, 100))
+        # diminui tamanho da imagem
+        img_pequena = cv2.resize(img_cortada, (600, 200))
 
         # converte imagem de CV2 para PIL
         img_plp = Image.fromarray(cv2.cvtColor(img_pequena,cv2.COLOR_BGR2RGB))  
 
         # binariza a imagem
-        img_binarizada = Binarizacao(img_plp, 80).processar()
+        img_binarizada = Binarizacao(img_plp, 92).processar()
 
         # converte imagem de PIL para CV2
         img_mat = cv2.cvtColor(numpy.asarray(img_binarizada), cv2.COLOR_RGB2BGR)
