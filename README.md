@@ -11,14 +11,11 @@
 
 
 #### Dependencias
-* python -m venv venv
-* venv\Scripts\activate.bat
-* pip install -r requirements.txt
+* > python -m venv venv
+* > venv\Scripts\activate.bat
+* > pip install -r requirements.txt
 
 
 #### Executar
-* venv\Scripts\activate.bat
-* python run.py
-* cv2
-* numpy
-* PIL
+* > venv\Scripts\activate.bat
+* > python run.py
