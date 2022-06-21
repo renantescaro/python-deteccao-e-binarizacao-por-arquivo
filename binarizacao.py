@@ -8,10 +8,10 @@ class Binarizacao:
         self._imagem    = imagem
         self._linha     = np.size(imagem, 0)
         self._coluna    = np.size(imagem, 1)
-        self._img_final = Image.new("RGB", (self._coluna, self._linha))
+        self._img_final = Image.new('RGB', (self._coluna, self._linha))
 
 
-    def processar(self):
+    def executar(self):
         # linha
         for i in range(self._linha):
             # coluna
